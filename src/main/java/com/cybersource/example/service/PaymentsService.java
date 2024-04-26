@@ -18,7 +18,7 @@ public class PaymentsService {
     private final ApplicationProperties applicationProperties;
 
     public String makePaymentWithTransientToken(final String transientToken) throws ConfigException, ApiException {
-        final ApiClient apiClient = new ApiClient(new MerchantConfig(applicationProperties.getAsJavaProperties()));
+        final ApiClient apiClient = new ApiClient(new MerchantConfig(applicationProperties.getMerchantConfigAsJavaProperties()));
         final PaymentsApi paymentApi = new PaymentsApi(apiClient);
 
         final CreatePaymentRequest paymentRequest = createPaymentRequest(transientToken);
@@ -34,12 +34,6 @@ public class PaymentsService {
         final Ptsv2paymentsTokenInformation tokenInformation = new Ptsv2paymentsTokenInformation().transientTokenJwt(transientToken);
         return new CreatePaymentRequest()
                 .clientReferenceInformation(clientReferenceInfo)
-                .tokenInformation(tokenInformation)
-                // TODO: Adding these in case $.captureMandate.billingType = PARTIAL or NONE,
-                //  or $.captureMandate.requestShipping = false. Long term, this should be fixed and this shouldn't be necessary.
-                .orderInformation(new Ptsv2paymentsOrderInformation()
-                        .billTo(new Ptsv2paymentsOrderInformationBillTo().administrativeArea("NY"))
-                        .shipTo(new Ptsv2paymentsOrderInformationShipTo().administrativeArea("NY"))
-                );
+                .tokenInformation(tokenInformation);
     }
 }

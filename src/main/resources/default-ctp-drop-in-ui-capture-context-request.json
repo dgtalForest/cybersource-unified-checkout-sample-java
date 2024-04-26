@@ -1,8 +1,8 @@
 {
   "targetOrigins" : [ "https://localhost:8080" ],
-  "clientVersion" : "0.17",
+  "clientVersion" : "0.19",
   "allowedCardNetworks" : [ "VISA", "MASTERCARD", "AMEX" ],
-  "allowedPaymentTypes" : [ "PANENTRY", "SRC","GOOGLEPAY" ],
+  "allowedPaymentTypes" : ["CLICKTOPAY"],
   "country" : "US",
   "locale" : "en_US",
   "captureMandate" : {

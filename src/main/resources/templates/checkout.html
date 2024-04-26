@@ -5,8 +5,8 @@
     <meta charset="utf-8"/>
     <title>Sample Checkout Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" th:href="${bootstrapVersion}"
-          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="icon" type="image/x-icon" href="favicon.ico"/>
     <style>
       body {
@@ -140,12 +140,13 @@
         emptyDiv.innerHTML = "";
         document.body.append(emptyDiv);
       }
-
     </script>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark sticky-top bg-dark">
-    <a class="navbar-brand" href="/">Unified Checkout</a>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Unified Checkout</a>
+    </div>
 </nav>
 <div class="container" role="main">
     <div id="capture-context-display-container"></div>
@@ -187,7 +188,16 @@
                     <hr/>
                     <h4>Order Total<span class="pull-right">$ 21.00</span></h4>
                     <hr/>
-
+                    <div th:if="${usedDropInUI}">
+                        <div class="alert alert-danger" role="alert">
+                            <h4 class="alert-heading">Caution!</h4>
+                            <hr>
+                            This payment flow will return raw payment credentials at the end! Do not enter a real card number
+                            below, instead use 4111 1111 1111 1111 or
+                            <a class="alert-link" href="https://developer.cybersource.com/hello-world/testing-guide-v1.html" target="_blank" rel="noopener noreferrer">another test card</a>.
+                            If you meant to use Unified Checkout (on Cybersource or the Visa Acceptance Gateway), <a href="/uc-overview" class="alert-link">go there</a>.
+                        </div>
+                    </div>
                     <div id="buttonPaymentListContainer">
                         <button type="button" id="checkoutEmbedded" class="btn btn-lg btn-block btn-primary"
                                 disabled="disabled">
